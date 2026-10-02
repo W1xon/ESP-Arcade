@@ -1,0 +1,20 @@
+# === Сборка ESP-IDF и CMake ===
+/cmake-build-debug/
+/cmake-build-release/
+/build/
+
+sdkconfig
+sdkconfig.old
+sdkconfig.defaults
+dependencies.lock
+
+# === Среда разработки CLion ===
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# === Мусор ===
+.DS_Store
+*.tmp
+*.bak
