@@ -43,7 +43,7 @@ QueueHandle_t GetArcadeFrameQueue() {
     return frameQueue;
 }
 
- void ArcadeButtonISRHandler(void *arg) {
+void ArcadeButtonISRHandler(void *arg) {
     BaseType_t xHigherPriorityTaskWoken = pdFALSE;
     vTaskNotifyGiveFromISR(xGameLogicTaskHandle, &xHigherPriorityTaskWoken);
 
@@ -62,16 +62,14 @@ void ArcadeLogicTask(void *args) {
             currentState = (AppState)((currentState + 1) % STATE_MAX);
             sceneChanged = true;
         }
-
-        if (sceneChanged) {
-            sceneChanged = false;
+        if (!sceneChanged) {
+            updateStateFunctions[currentState]();
+        }
+        else {
             startStateFunctions[currentState]();
-            vTaskDelay(pdMS_TO_TICKS(10));
-            continue;
         }
 
-        updateStateFunctions[currentState]();
-
+        sceneChanged = false;
         vTaskDelay(pdMS_TO_TICKS(10));
     }
 }
