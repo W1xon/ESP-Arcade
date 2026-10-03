@@ -1,5 +1,3 @@
-idf_component_register(
-        SRCS "main.c"
+idf_component_register(SRCS "main.c"
         INCLUDE_DIRS "."
-        REQUIRES oled_display game_of_life freertos
-)
+        REQUIRES arcade driver )

@@ -1,7 +1,7 @@
 #include "game_of_life.h"
 
-static uint8_t gameBuffer[OLED_BUFFER_SIZE];
-static uint8_t nextGameBuffer[OLED_BUFFER_SIZE];
+static uint8_t gameBuffer[BUFFER_SIZE];
+static uint8_t nextGameBuffer[BUFFER_SIZE];
 
 static bool IsInBounds(int x, int y) {
     return (x >= 0 && x < OLED_WIDTH && y >= 0 && y < OLED_HEIGHT);
@@ -53,7 +53,7 @@ static void ChangeCellState(uint8_t *buffer, int x, int y, bool state) {
 }
 
 static void ClearBuffer(uint8_t *buffer) {
-    memset(buffer, 0, OLED_BUFFER_SIZE);
+    memset(buffer, 0, BUFFER_SIZE);
 }
 static bool IsCellAliveNextGen(int x, int y) {
     int lifeNeighbours = GetLifeNeighbours(x, y);
@@ -71,18 +71,18 @@ void GameStep() {
             ChangeCellState(nextGameBuffer, x, y, nextState);
         }
     }
-    memcpy(gameBuffer, nextGameBuffer, OLED_BUFFER_SIZE);
+    memcpy(gameBuffer, nextGameBuffer, BUFFER_SIZE);
 }
 
 void RandomizeBuffer() {
     ClearGameBuffer();
     uint32_t *ptr = (uint32_t*)gameBuffer;
-    for (int i = 0; i < OLED_BUFFER_SIZE / 4; i++) {
+    for (int i = 0; i < BUFFER_SIZE / 4; i++) {
         ptr[i] = esp_random();
     }
 }
 void ClearGameBuffer() {
-    memset(gameBuffer, 0, OLED_BUFFER_SIZE);
+    memset(gameBuffer, 0, BUFFER_SIZE);
 }
 
 const uint8_t* GetCurrentFrame() {

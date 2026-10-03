@@ -7,7 +7,7 @@
 
 #define OLED_WIDTH 128
 #define OLED_HEIGHT 64
-#define OLED_BUFFER_SIZE (OLED_WIDTH * OLED_HEIGHT / 8)
+#define BUFFER_SIZE (OLED_WIDTH * OLED_HEIGHT / 8)
 
 void GameStep();
 void RandomizeBuffer();
