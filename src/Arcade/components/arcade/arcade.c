@@ -6,7 +6,6 @@
 #include "oled_display.h"
 #include "game_of_life.h"
 
-// Дубликат task.h сверху мы убрали
 #include "scenes/menu_scene.h"
 #include "scenes/gol_scene.h"
 #include "scenes/snake_scene.h"
@@ -55,6 +54,7 @@ QueueHandle_t GetArcadeFrameQueue() {
 
 void ArcadeLogicTask(void *args) {
     bool sceneChanged = false;
+    startStateFunctions[currentState]();
     while(1) {
 
         if (ulTaskNotifyTake(pdTRUE, 0) > 0) {
@@ -62,17 +62,17 @@ void ArcadeLogicTask(void *args) {
             currentState = (AppState)((currentState + 1) % STATE_MAX);
             sceneChanged = true;
         }
-        if (sceneChanged && startStateFunctions[currentState] != NULL) {
-                startStateFunctions[currentState]();
 
+        if (sceneChanged) {
+            sceneChanged = false;
+            startStateFunctions[currentState]();
+            vTaskDelay(pdMS_TO_TICKS(10));
+            continue;
         }
 
-        if (updateStateFunctions[currentState] != NULL) {
-            updateStateFunctions[currentState]();
-        }
+        updateStateFunctions[currentState]();
 
         vTaskDelay(pdMS_TO_TICKS(10));
-        sceneChanged = false;
     }
 }
 
@@ -95,9 +95,8 @@ void JoystickHandleTask(void *args) {
     while (1) {
 
         joystickPos = JoystickRead();
-        if (joystickQueue != NULL) {
-            xQueueOverwrite(joystickQueue, &joystickPos);
-        }
+
+        xQueueOverwrite(joystickQueue, &joystickPos);
         printf("Joystick: x=%d, y=%d\n", joystickPos.x, joystickPos.y);
         vTaskDelay(pdMS_TO_TICKS(50));
     }
