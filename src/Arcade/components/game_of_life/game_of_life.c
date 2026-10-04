@@ -80,10 +80,10 @@ void RandomizeBuffer() {
         ptr[i] = esp_random();
     }
 }
-void ClearGameBuffer() {
+void GolClearGameBuffer() {
     memset(gameBuffer, 0, BUFFER_SIZE);
 }
 
-const uint8_t* GetCurrentFrame() {
+const uint8_t* GolGetCurrentFrame() {
     return gameBuffer;
 }

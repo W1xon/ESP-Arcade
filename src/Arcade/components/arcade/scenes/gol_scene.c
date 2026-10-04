@@ -8,7 +8,7 @@ void StartGameOfLife() {
 void UpdateGameOfLife() {
     GameStep();
 
-    const uint8_t *frame = GetCurrentFrame();
+    const uint8_t *frame = GolGetCurrentFrame();
     QueueHandle_t frameQueue = GetArcadeFrameQueue();
     xQueueSend(frameQueue, &frame, portMAX_DELAY);
 }

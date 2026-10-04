@@ -21,7 +21,6 @@ typedef enum {
 
 static AppState currentState = STATE_MAIN_MENU;
 
-
 static StateFunction startStateFunctions[] = {
     [STATE_MAIN_MENU] = StartMainMenu,
     [STATE_GAME_OF_LIFE] = StartGameOfLife,
@@ -89,15 +88,19 @@ void ArcadeDisplayTask(void *args) {
 void JoystickHandleTask(void *args) {
 
     JoystickInit();
-    joystickPosition_t joystickPos;
     while (1) {
 
-        joystickPos = JoystickRead();
+        joystickPosition_t joystickPos = JoystickRead();
 
         xQueueOverwrite(joystickQueue, &joystickPos);
         printf("Joystick: x=%d, y=%d\n", joystickPos.x, joystickPos.y);
         vTaskDelay(pdMS_TO_TICKS(50));
     }
+}
+joystickPosition_t GetJoystickPosition() {
+    joystickPosition_t joystickPos = {0,0};
+    xQueuePeek(joystickQueue, &joystickPos, 0);
+    return joystickPos;
 }
 void ArcadeInit() {
     frameQueue = xQueueCreate(2, sizeof(uint8_t *));

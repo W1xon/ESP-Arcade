@@ -11,5 +11,5 @@
 
 void GameStep();
 void RandomizeBuffer();
-void ClearGameBuffer();
-const uint8_t* GetCurrentFrame();
+void GolClearGameBuffer();
+const uint8_t* GolGetCurrentFrame();
