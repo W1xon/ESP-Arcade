@@ -99,14 +99,6 @@ void InitSnake() {
 void Update() {
     UpdateDirection();
     Move();
-
-    if (snake[0].x == foodPosition.x && snake[0].y == foodPosition.y) {
-        if (snakeLength < MAX_SNAKE_LENGTH) {
-            snakeLength++;
-            snake[snakeLength - 1] = snake[snakeLength - 2];
-        }
-        CreateFood();
-    }
 }
 
 
