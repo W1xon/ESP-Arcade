@@ -3,7 +3,6 @@
 #include "arcade.h"
 
 void StartGameOfLife() {
-    ClearGameBuffer();
     RandomizeBuffer();
 }
 void UpdateGameOfLife() {

@@ -75,7 +75,6 @@ void GameStep() {
 }
 
 void RandomizeBuffer() {
-    ClearGameBuffer();
     uint32_t *ptr = (uint32_t*)gameBuffer;
     for (int i = 0; i < BUFFER_SIZE / 4; i++) {
         ptr[i] = esp_random();

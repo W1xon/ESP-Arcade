@@ -62,11 +62,11 @@ void ArcadeLogicTask(void *args) {
             currentState = (AppState)((currentState + 1) % STATE_MAX);
             sceneChanged = true;
         }
-        if (!sceneChanged) {
-            updateStateFunctions[currentState]();
+        if (sceneChanged) {
+            startStateFunctions[currentState]();
         }
         else {
-            startStateFunctions[currentState]();
+            updateStateFunctions[currentState]();
         }
 
         sceneChanged = false;
