@@ -1,5 +1,12 @@
 #include "game_of_life.h"
 
+#include <string.h>
+#include "esp_random.h"
+
+#define OLED_WIDTH 128
+#define OLED_HEIGHT 64
+#define BUFFER_SIZE (OLED_WIDTH * OLED_HEIGHT / 8)
+
 static uint8_t gameBuffer[BUFFER_SIZE];
 static uint8_t nextGameBuffer[BUFFER_SIZE];
 

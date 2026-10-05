@@ -1,5 +1,16 @@
 #include  "oled_display.h"
 
+#include "esp_lcd_io_i2c.h"
+#include "esp_lcd_panel_io.h"
+#include "esp_lcd_panel_ops.h"
+#include "esp_lcd_panel_ssd1306.h"
+
+
+#define OLED_SDA_GPIO GPIO_NUM_22
+#define OLED_SCL_GPIO GPIO_NUM_23
+
+#define OLED_I2C_ADDRESS 0x3C
+
 static esp_lcd_panel_handle_t panelOled;
 
 void InitOled(void) {

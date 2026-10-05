@@ -1,10 +1,9 @@
 #include "joystick.h"
 #include "esp_adc/adc_oneshot.h"
 
-// Настройки АЦП под XIAO ESP32C6 (D0 и D1)
 #define JOYSTICK_ADC_UNIT        ADC_UNIT_1
-#define JOYSTICK_ADC_CH_X        ADC_CHANNEL_0 // Пин D0
-#define JOYSTICK_ADC_CH_Y        ADC_CHANNEL_1 // Пин D1
+#define JOYSTICK_ADC_CH_X        ADC_CHANNEL_0
+#define JOYSTICK_ADC_CH_Y        ADC_CHANNEL_1
 
 static adc_oneshot_unit_handle_t adc_handle = NULL;
 

@@ -4,7 +4,6 @@
 #include "driver/gpio.h"
 #include "driver/gpio_filter.h"
 #include "oled_display.h"
-#include "game_of_life.h"
 
 #include "scenes/menu_scene.h"
 #include "scenes/gol_scene.h"
@@ -51,25 +50,24 @@ void ArcadeButtonISRHandler(void *arg) {
     }
 }
 
-void ArcadeLogicTask(void *args) {
-    bool sceneChanged = false;
+void ArcadeLogicTask(void *args)
+{
     startStateFunctions[currentState]();
-    while(1) {
 
+    while (1) {
         if (ulTaskNotifyTake(pdTRUE, 0) > 0) {
             printf("Button pressed, changing scene\n");
-            currentState = (AppState)((currentState + 1) % STATE_MAX);
-            sceneChanged = true;
-        }
-        if (sceneChanged) {
+
+            currentState =
+                (AppState)((currentState + 1) % STATE_MAX);
+
             startStateFunctions[currentState]();
         }
         else {
             updateStateFunctions[currentState]();
         }
 
-        sceneChanged = false;
-        vTaskDelay(pdMS_TO_TICKS(10));
+        vTaskDelay(pdMS_TO_TICKS(20));
     }
 }
 

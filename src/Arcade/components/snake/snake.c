@@ -6,6 +6,11 @@
 #include "joystick.h"
 #include "esp_random.h"
 
+#define WIDTH 128
+#define HEIGHT 64
+
+#define BUFFER_SIZE (WIDTH * HEIGHT / 8)
+
 #define JOY_CENTER 1500
 #define JOY_THRESHOLD 800
 #define MAX_SNAKE_LENGTH 50
